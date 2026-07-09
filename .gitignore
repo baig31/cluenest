@@ -1,0 +1,18 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+
+# Composer
+vendor/
+
+# Node
+node_modules/
+
+# Environment
+.env
+
+# Logs
+*.log
