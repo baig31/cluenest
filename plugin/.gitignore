@@ -1,0 +1,12 @@
+# ZIP files
+*.zip
+
+# Windows
+Thumbs.db
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
