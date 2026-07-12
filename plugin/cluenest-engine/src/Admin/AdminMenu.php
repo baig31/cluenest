@@ -6,7 +6,7 @@ namespace ClueNest\Admin;
 
 defined('ABSPATH') || exit;
 
-class AdminMenu
+final class AdminMenu
 {
     public function register(): void
     {

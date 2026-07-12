@@ -12,7 +12,7 @@ final class DatabaseManager
     {
         global $wpdb;
 
-        return $wpdb->prefix . 'cn_';
+        return $wpdb->prefix;
     }
 
     public static function getProductsTable(): string
