@@ -44,6 +44,15 @@ final class AdminMenu
         );
 
         add_submenu_page(
+    null,
+    'Add Product',
+    'Add Product',
+    'manage_options',
+    'cluenest-product-create',
+    [$this, 'createProductPage']
+);
+
+        add_submenu_page(
             'cluenest',
             'Brands',
             'Brands',
@@ -95,9 +104,18 @@ final class AdminMenu
     }
 
     public function productsPage(): void
-    {
-        echo '<div class="wrap"><h1>Products</h1><p>Coming Soon...</p></div>';
-    }
+{
+    $controller = new \ClueNest\Admin\Product\ProductController();
+
+    $controller->index();
+}
+
+public function createProductPage(): void
+{
+    $controller = new \ClueNest\Admin\Product\ProductController();
+
+    $controller->create();
+}
 
     public function brandsPage(): void
     {
