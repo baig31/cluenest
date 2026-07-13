@@ -52,6 +52,25 @@ final class AdminMenu
     [$this, 'createProductPage']
 );
 
+add_submenu_page(
+    null,
+    'Edit Product',
+    'Edit Product',
+    'manage_options',
+    'cluenest-product-edit',
+    [$this, 'editProductPage']
+);
+
+
+add_submenu_page(
+    null,
+    'Delete Product',
+    'Delete Product',
+    'manage_options',
+    'cluenest-product-delete',
+    [$this, 'deleteProductPage']
+);
+
         add_submenu_page(
             'cluenest',
             'Brands',
@@ -115,6 +134,21 @@ public function createProductPage(): void
     $controller = new \ClueNest\Admin\Product\ProductController();
 
     $controller->create();
+}
+
+
+public function editProductPage(): void
+{
+    $controller = new \ClueNest\Admin\Product\ProductController();
+
+    $controller->edit();
+}
+
+public function deleteProductPage(): void
+{
+    $controller = new \ClueNest\Admin\Product\ProductController();
+
+    $controller->delete();
 }
 
     public function brandsPage(): void

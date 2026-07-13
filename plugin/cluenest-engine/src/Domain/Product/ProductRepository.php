@@ -42,29 +42,79 @@ final class ProductRepository
     }
 
     public function save(array $data): int
-{
-    global $wpdb;
+    {
+        global $wpdb;
 
-    $table = DatabaseManager::getProductsTable();
+        $table = DatabaseManager::getProductsTable();
 
-    $wpdb->insert(
-        $table,
-        [
-            'slug' => $data['slug'],
-            'name' => $data['name'],
-            'status' => $data['status'],
-            'created_at' => current_time('mysql'),
-            'updated_at' => current_time('mysql'),
-        ],
-        [
-            '%s',
-            '%s',
-            '%s',
-            '%s',
-            '%s',
-        ]
-    );
+        $wpdb->insert(
+            $table,
+            [
+                'slug'       => $data['slug'],
+                'name'       => $data['name'],
+                'status'     => $data['status'],
+                'created_at' => current_time('mysql'),
+                'updated_at' => current_time('mysql'),
+            ],
+            [
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+            ]
+        );
 
-    return (int) $wpdb->insert_id;
-}
+        return (int) $wpdb->insert_id;
+    }
+
+    public function update(int $id, array $data): bool
+    {
+        global $wpdb;
+
+        $table = DatabaseManager::getProductsTable();
+
+        $result = $wpdb->update(
+            $table,
+            [
+                'slug'       => $data['slug'],
+                'name'       => $data['name'],
+                'status'     => $data['status'],
+                'updated_at' => current_time('mysql'),
+            ],
+            [
+                'id' => $id,
+            ],
+            [
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+            ],
+            [
+                '%d',
+            ]
+        );
+
+        return $result !== false;
+    }
+
+    public function delete(int $id): bool
+    {
+        global $wpdb;
+
+        $table = DatabaseManager::getProductsTable();
+
+        $result = $wpdb->delete(
+            $table,
+            [
+                'id' => $id,
+            ],
+            [
+                '%d',
+            ]
+        );
+
+        return $result !== false;
+    }
 }

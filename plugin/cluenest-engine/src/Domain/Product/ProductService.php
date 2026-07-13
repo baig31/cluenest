@@ -22,12 +22,46 @@ final class ProductService
     }
 
     /**
-     * Create a new product.
+     * Get a single product.
+     */
+    public function getProductById(int $id): ?array
+    {
+        return $this->repository->findById($id);
+    }
+
+    /**
+     * Create a product.
      */
     public function createProduct(array $data): int
     {
-        // Basic validation
+        $data = $this->validate($data);
 
+        return $this->repository->save($data);
+    }
+
+    /**
+     * Update a product.
+     */
+    public function updateProduct(int $id, array $data): bool
+    {
+        $data = $this->validate($data);
+
+        return $this->repository->update($id, $data);
+    }
+
+    /**
+ * Delete a product.
+ */
+public function deleteProduct(int $id): bool
+{
+    return $this->repository->delete($id);
+}
+
+    /**
+     * Validate product data.
+     */
+    private function validate(array $data): array
+    {
         $data['name'] = trim($data['name'] ?? '');
         $data['slug'] = trim($data['slug'] ?? '');
         $data['status'] = $data['status'] ?? 'draft';
@@ -40,6 +74,6 @@ final class ProductService
             throw new \InvalidArgumentException('Product slug is required.');
         }
 
-        return $this->repository->save($data);
+        return $data;
     }
 }
