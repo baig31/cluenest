@@ -123,8 +123,8 @@ public function delete(): void
         $this->service->deleteProduct($id);
 
         wp_redirect(
-            admin_url('admin.php?page=cluenest-products')
-        );
+    admin_url('admin.php?page=cluenest-products&message=created')
+);
 
         exit;
 

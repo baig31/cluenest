@@ -95,4 +95,12 @@ defined('ABSPATH') || exit;
 
     <?php endif; ?>
 
+    <?php if (isset($_GET['message']) && $_GET['message'] === 'created') : ?>
+
+    <div class="notice notice-success is-dismissible">
+        <p>Product created successfully.</p>
+    </div>
+
+<?php endif; ?>
+
 </div>
