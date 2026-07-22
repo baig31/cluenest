@@ -107,6 +107,33 @@ add_submenu_page(
     [$this, 'deleteBrandPage']
 );
 
+add_submenu_page(
+    null,
+    'Add Category',
+    'Add Category',
+    'manage_options',
+    'cluenest-category-create',
+    [$this, 'createCategoryPage']
+);
+
+add_submenu_page(
+    null,
+    'Edit Category',
+    'Edit Category',
+    'manage_options',
+    'cluenest-category-edit',
+    [$this, 'editCategoryPage']
+);
+
+add_submenu_page(
+    null,
+    'Delete Category',
+    'Delete Category',
+    'manage_options',
+    'cluenest-category-delete',
+    [$this, 'deleteCategoryPage']
+);
+
         add_submenu_page(
             'cluenest',
             'Categories',
@@ -207,10 +234,37 @@ public function deleteBrandPage(): void
     $controller->index();
     }
 
+
+    public function createCategoryPage(): void
+{
+    $controller = new \ClueNest\Admin\Category\CategoryController();
+
+    $controller->create();
+}
+
+public function editCategoryPage(): void
+{
+    $controller = new \ClueNest\Admin\Category\CategoryController();
+
+    $controller->edit();
+}
+
+public function deleteCategoryPage(): void
+{
+    $controller = new \ClueNest\Admin\Category\CategoryController();
+
+    $controller->delete();
+}
+
     public function categoriesPage(): void
-    {
-        echo '<div class="wrap"><h1>Categories</h1><p>Coming Soon...</p></div>';
-    }
+{
+    $controller = new \ClueNest\Admin\Category\CategoryController();
+
+    $controller->index();
+}
+
+
+
 
     public function buyingGuidesPage(): void
     {

@@ -6,6 +6,7 @@ namespace ClueNest\Database;
 
 use ClueNest\Database\Tables\ProductsTable;
 use ClueNest\Database\Tables\BrandsTable;
+use ClueNest\Database\Tables\CategoriesTable;
 
 defined('ABSPATH') || exit;
 
@@ -16,6 +17,7 @@ final class Schema
         return [
             new ProductsTable(),
             new BrandsTable(),
+            new CategoriesTable(),
         ];
     }
 }
