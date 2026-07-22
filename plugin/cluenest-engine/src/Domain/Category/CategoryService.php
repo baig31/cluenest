@@ -18,11 +18,10 @@ final class CategoryService
         return $this->repository->findAll();
     }
 
-    public function getCategoryById(int $id): ?array
-    {
-        return $this->repository->findById($id);
-    }
-
+   public function getCategoryById(int $id): ?object
+{
+    return $this->repository->findById($id);
+}
     public function createCategory(array $data): int
     {
         $data = $this->validate($data);

@@ -17,14 +17,13 @@ final class CategoryRepository
         $table = DatabaseManager::getCategoriesTable();
 
         $results = $wpdb->get_results(
-            "SELECT * FROM {$table} ORDER BY name ASC",
-            ARRAY_A
+            "SELECT * FROM {$table} ORDER BY name ASC"
         );
 
         return $results ?: [];
     }
 
-    public function findById(int $id): ?array
+    public function findById(int $id): ?object
     {
         global $wpdb;
 
@@ -34,8 +33,7 @@ final class CategoryRepository
             $wpdb->prepare(
                 "SELECT * FROM {$table} WHERE id = %d",
                 $id
-            ),
-            ARRAY_A
+            )
         );
 
         return $category ?: null;
