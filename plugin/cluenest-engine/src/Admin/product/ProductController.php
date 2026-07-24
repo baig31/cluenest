@@ -39,13 +39,18 @@ final class ProductController
 
             check_admin_referer('cluenest_create_product');
 
-            $data = [
-                'brand_id'    => isset($_POST['brand_id']) ? (int) $_POST['brand_id'] : null,
-                'category_id' => isset($_POST['category_id']) ? (int) $_POST['category_id'] : null,
-                'name'        => sanitize_text_field($_POST['name'] ?? ''),
-                'slug'        => sanitize_title($_POST['slug'] ?? ''),
-                'status'      => sanitize_text_field($_POST['status'] ?? 'draft'),
-            ];
+           $data = [
+    'brand_id'          => isset($_POST['brand_id']) ? (int) $_POST['brand_id'] : null,
+    'category_id'       => isset($_POST['category_id']) ? (int) $_POST['category_id'] : null,
+'featured_image_id' => isset($_POST['featured_image_id']) ? (int) $_POST['featured_image_id'] : null,
+    'name'              => sanitize_text_field($_POST['name'] ?? ''),
+    'slug'              => sanitize_title($_POST['slug'] ?? ''),
+    'model_number'      => sanitize_text_field($_POST['model_number'] ?? ''),
+    'short_description' => wp_kses_post($_POST['short_description'] ?? ''),
+    'long_description'  => wp_kses_post($_POST['long_description'] ?? ''),
+    'editorial_rating'  => (float) ($_POST['editorial_rating'] ?? 0),
+    'status'            => sanitize_text_field($_POST['status'] ?? 'draft'),
+];
 
             try {
 
@@ -92,12 +97,17 @@ final class ProductController
             check_admin_referer('cluenest_update_product');
 
             $data = [
-                'brand_id'    => isset($_POST['brand_id']) ? (int) $_POST['brand_id'] : null,
-                'category_id' => isset($_POST['category_id']) ? (int) $_POST['category_id'] : null,
-                'name'        => sanitize_text_field($_POST['name'] ?? ''),
-                'slug'        => sanitize_title($_POST['slug'] ?? ''),
-                'status'      => sanitize_text_field($_POST['status'] ?? 'draft'),
-            ];
+    'brand_id'          => isset($_POST['brand_id']) ? (int) $_POST['brand_id'] : null,
+    'category_id'       => isset($_POST['category_id']) ? (int) $_POST['category_id'] : null,
+'featured_image_id' => isset($_POST['featured_image_id']) ? (int) $_POST['featured_image_id'] : null,
+    'name'              => sanitize_text_field($_POST['name'] ?? ''),
+    'slug'              => sanitize_title($_POST['slug'] ?? ''),
+    'model_number'      => sanitize_text_field($_POST['model_number'] ?? ''),
+    'short_description' => wp_kses_post($_POST['short_description'] ?? ''),
+    'long_description'  => wp_kses_post($_POST['long_description'] ?? ''),
+    'editorial_rating'  => (float) ($_POST['editorial_rating'] ?? 0),
+    'status'            => sanitize_text_field($_POST['status'] ?? 'draft'),
+];
 
             try {
 

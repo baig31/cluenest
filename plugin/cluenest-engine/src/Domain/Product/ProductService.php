@@ -57,35 +57,58 @@ final class ProductService
         return $this->repository->delete($id);
     }
 
-    /**
-     * Validate product data.
-     */
-    private function validate(array $data): array
-    {
-        $data['brand_id'] = isset($data['brand_id']) && $data['brand_id'] !== ''
-            ? (int) $data['brand_id']
-            : null;
+   
+/**
+ * Validate product data.
+ */
+private function validate(array $data): array
+{
+    $data['brand_id'] = !empty($data['brand_id'])
+        ? (int) $data['brand_id']
+        : null;
 
-        $data['category_id'] = isset($data['category_id']) && $data['category_id'] !== ''
-            ? (int) $data['category_id']
-            : null;
+    $data['category_id'] = !empty($data['category_id'])
+        ? (int) $data['category_id']
+        : null;
 
-        $data['name'] = trim($data['name'] ?? '');
-        $data['slug'] = trim($data['slug'] ?? '');
-        $data['status'] = trim($data['status'] ?? 'draft');
+    $data['featured_image_id'] = !empty($data['featured_image_id'])
+        ? (int) $data['featured_image_id']
+        : null;
 
-        if ($data['name'] === '') {
-            throw new \InvalidArgumentException('Product name is required.');
-        }
+    $data['name'] = sanitize_text_field(trim($data['name'] ?? ''));
 
-        if ($data['slug'] === '') {
-            $data['slug'] = sanitize_title($data['name']);
-        }
+    $data['slug'] = sanitize_title($data['slug'] ?? '');
 
-        if (!in_array($data['status'], ['publish', 'draft'], true)) {
-            $data['status'] = 'draft';
-        }
+    $data['model_number'] = sanitize_text_field(trim($data['model_number'] ?? ''));
 
-        return $data;
+    $data['short_description'] = wp_kses_post($data['short_description'] ?? '');
+
+    $data['long_description'] = wp_kses_post($data['long_description'] ?? '');
+
+    $data['editorial_rating'] = isset($data['editorial_rating'])
+        ? (float) $data['editorial_rating']
+        : 0;
+
+    $data['status'] = trim($data['status'] ?? 'draft');
+
+    if ($data['name'] === '') {
+        throw new \InvalidArgumentException('Product name is required.');
     }
+
+    if ($data['slug'] === '') {
+        $data['slug'] = sanitize_title($data['name']);
+    }
+
+    if ($data['editorial_rating'] < 0 || $data['editorial_rating'] > 5) {
+        throw new \InvalidArgumentException(
+            'Editorial rating must be between 0 and 5.'
+        );
+    }
+
+    if (!in_array($data['status'], ['draft', 'publish'], true)) {
+        $data['status'] = 'draft';
+    }
+
+    return $data;
+}
 }

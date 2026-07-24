@@ -56,65 +56,85 @@ final class ProductRepository
 
         $table = DatabaseManager::getProductsTable();
 
-        $wpdb->insert(
-            $table,
-            [
-                'brand_id'    => $data['brand_id'],
-                'category_id' => $data['category_id'],
-                'slug'        => $data['slug'],
-                'name'        => $data['name'],
-                'status'      => $data['status'],
-                'created_at'  => current_time('mysql'),
-                'updated_at'  => current_time('mysql'),
-            ],
-            [
-                '%d',
-                '%d',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-            ]
-        );
+       $wpdb->insert(
+    $table,
+    [
+        'brand_id'          => $data['brand_id'],
+        'category_id'       => $data['category_id'],
+        'slug'              => $data['slug'],
+        'name'              => $data['name'],
+        'model_number'      => $data['model_number'],
+        'short_description' => $data['short_description'],
+        'long_description'  => $data['long_description'],
+        'editorial_rating'  => $data['editorial_rating'],
+        'status'            => $data['status'],
+        'created_at'        => current_time('mysql'),
+        'updated_at'        => current_time('mysql'),
+    ],
+    [
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%f',
+        '%s',
+        '%s',
+        '%s',
+    ]
+);
 
         return (int) $wpdb->insert_id;
     }
 
-    public function update(int $id, array $data): bool
-    {
-        global $wpdb;
+   public function update(int $id, array $data): bool
+{
+    global $wpdb;
 
-        $table = DatabaseManager::getProductsTable();
+    $table = DatabaseManager::getProductsTable();
 
-        $result = $wpdb->update(
-            $table,
-            [
-                'brand_id'    => $data['brand_id'],
-                'category_id' => $data['category_id'],
-                'slug'        => $data['slug'],
-                'name'        => $data['name'],
-                'status'      => $data['status'],
-                'updated_at'  => current_time('mysql'),
-            ],
-            [
-                'id' => $id,
-            ],
-            [
-                '%d',
-                '%d',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-            ],
-            [
-                '%d',
-            ]
-        );
+    $result = $wpdb->update(
+        $table,
+        [
+            'brand_id'          => $data['brand_id'],
+            'category_id'       => $data['category_id'],
+            'featured_image_id' => $data['featured_image_id'],
+            'category_id' => $data['category_id'],
+            'slug'              => $data['slug'],
+            'name'              => $data['name'],
+            'model_number'      => $data['model_number'],
+            'short_description' => $data['short_description'],
+            'long_description'  => $data['long_description'],
+            'editorial_rating'  => $data['editorial_rating'],
+            'status'            => $data['status'],
+            'updated_at'        => current_time('mysql'),
+        ],
+        [
+            'id' => $id,
+        ],
+        [
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%f',
+            '%s',
+            '%s',
+        ],
+        [
+            '%d',
+        ]
+    );
 
-        return $result !== false;
-    }
+    return $result !== false;
+}
 
     public function delete(int $id): bool
     {

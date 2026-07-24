@@ -10,7 +10,17 @@ $name = $product->name ?? '';
 $slug = $product->slug ?? '';
 $brandId = $product->brand_id ?? '';
 $categoryId = $product->category_id ?? '';
+$modelNumber = $product->model_number ?? '';
+$shortDescription = $product->short_description ?? '';
+$longDescription = $product->long_description ?? '';
+$editorialRating = $product->editorial_rating ?? 0;
 $status = $product->status ?? 'draft';
+$featuredImageId = $product->featured_image_id ?? '';
+
+$featuredImageUrl = $featuredImageId
+    ? wp_get_attachment_image_url($featuredImageId, 'medium')
+    : '';
+
 ?>
 
 <form method="post">
@@ -72,6 +82,56 @@ $status = $product->status ?? 'draft';
         </tr>
 
         <tr>
+    <th>
+        <label>Featured Image</label>
+    </th>
+    <td>
+
+        <input
+            type="hidden"
+            id="featured_image_id"
+            name="featured_image_id"
+            value="<?php echo esc_attr($featuredImageId); ?>">
+
+        <div id="featured-image-preview">
+
+            <?php if ($featuredImageUrl) : ?>
+
+                <img
+                    src="<?php echo esc_url($featuredImageUrl); ?>"
+                    style="max-width:180px;height:auto;border:1px solid #ddd;padding:5px;display:block;margin-bottom:10px;">
+
+            <?php endif; ?>
+
+        </div>
+
+        <button
+            type="button"
+            class="button"
+            id="select-featured-image">
+
+            Select Image
+
+        </button>
+
+        <button
+            type="button"
+            class="button"
+            id="remove-featured-image"
+            <?php echo empty($featuredImageId) ? 'style="display:none;"' : ''; ?>>
+
+            Remove Image
+
+        </button>
+
+        <p class="description">
+            Choose a featured image from the WordPress Media Library.
+        </p>
+
+    </td>
+</tr>
+
+        <tr>
             <th>
                 <label for="name">Product Name</label>
             </th>
@@ -97,6 +157,74 @@ $status = $product->status ?? 'draft';
                     name="slug"
                     class="regular-text"
                     value="<?php echo esc_attr($slug); ?>">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label for="model_number">Model Number</label>
+            </th>
+            <td>
+                <input
+                    type="text"
+                    id="model_number"
+                    name="model_number"
+                    class="regular-text"
+                    value="<?php echo esc_attr($modelNumber); ?>">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label for="short_description">Short Description</label>
+            </th>
+            <td>
+                <textarea
+                    id="short_description"
+                    name="short_description"
+                    rows="4"
+                    cols="60"><?php echo esc_textarea($shortDescription); ?></textarea>
+
+                <p class="description">
+                    A brief summary of the product.
+                </p>
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label for="long_description">Long Description</label>
+            </th>
+            <td>
+                <textarea
+                    id="long_description"
+                    name="long_description"
+                    rows="8"
+                    cols="60"><?php echo esc_textarea($longDescription); ?></textarea>
+
+                <p class="description">
+                    Detailed product description, features, specifications and buying guide.
+                </p>
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label for="editorial_rating">Editorial Rating</label>
+            </th>
+            <td>
+                <input
+                    type="number"
+                    id="editorial_rating"
+                    name="editorial_rating"
+                    min="0"
+                    max="5"
+                    step="0.1"
+                    value="<?php echo esc_attr($editorialRating); ?>">
+
+                <p class="description">
+                    Enter a rating between 0.0 and 5.0.
+                </p>
             </td>
         </tr>
 

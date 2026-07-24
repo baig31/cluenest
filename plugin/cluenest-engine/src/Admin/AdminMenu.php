@@ -8,10 +8,11 @@ defined('ABSPATH') || exit;
 
 final class AdminMenu
 {
-    public function register(): void
-    {
-        add_action('admin_menu', [$this, 'registerMenu']);
-    }
+   public function register(): void
+{
+    add_action('admin_menu', [$this, 'registerMenu']);
+    add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
+}
 
     public function registerMenu(): void
     {
@@ -280,4 +281,30 @@ public function deleteCategoryPage(): void
     {
         echo '<div class="wrap"><h1>Settings</h1><p>Coming Soon...</p></div>';
     }
+
+    public function enqueueAssets(string $hook): void
+{
+    if (!isset($_GET['page'])) {
+        return;
+    }
+
+    $allowedPages = [
+        'cluenest-product-create',
+        'cluenest-product-edit',
+    ];
+
+    if (!in_array($_GET['page'], $allowedPages, true)) {
+        return;
+    }
+
+    wp_enqueue_media();
+
+    wp_enqueue_script(
+        'cluenest-product-media',
+        CN_PLUGIN_URL . 'assets/js/admin/product-media.js',
+        ['jquery'],
+        CN_PLUGIN_VERSION,
+        true
+    );
+}
 }

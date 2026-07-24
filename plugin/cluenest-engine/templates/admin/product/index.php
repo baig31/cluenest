@@ -55,10 +55,14 @@ defined('ABSPATH') || exit;
 
                 <tr>
                     <th width="60">ID</th>
+<th width="80">Image</th>
+<th>Product</th>
                     <th>Product</th>
                     <th>Brand</th>
                     <th>Category</th>
-                    <th width="120">Status</th>
+                    <th>Model</th>
+                    <th>Rating</th>
+                    <th width="100">Status</th>
                     <th width="180">Actions</th>
                 </tr>
 
@@ -72,19 +76,51 @@ defined('ABSPATH') || exit;
 
                         <td><?php echo esc_html($product->id); ?></td>
 
-                        <td><?php echo esc_html($product->name); ?></td>
+<td>
 
-                        <td>
-                            <?php echo esc_html($product->brand_name ?: '—'); ?>
-                        </td>
+    <?php if (!empty($product->featured_image_id)) : ?>
 
-                        <td>
-                            <?php echo esc_html($product->category_name ?: '—'); ?>
-                        </td>
+        <?php echo wp_get_attachment_image(
+            (int) $product->featured_image_id,
+            [60, 60],
+            false,
+            [
+                'style' => 'border-radius:4px;object-fit:cover;'
+            ]
+        ); ?>
 
-                        <td>
-                            <?php echo esc_html(ucfirst($product->status)); ?>
-                        </td>
+    <?php else : ?>
+
+        <div
+            style="
+                width:60px;
+                height:60px;
+                background:#f1f1f1;
+                border:1px solid #ddd;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#999;
+                font-size:11px;
+            ">
+            No Image
+        </div>
+
+    <?php endif; ?>
+
+</td>
+
+<td><?php echo esc_html($product->name); ?></td>
+
+                        <td><?php echo esc_html($product->brand_name ?: '—'); ?></td>
+
+                        <td><?php echo esc_html($product->category_name ?: '—'); ?></td>
+
+                        <td><?php echo esc_html($product->model_number ?: '—'); ?></td>
+
+                        <td><?php echo esc_html(number_format((float) $product->editorial_rating, 1)); ?></td>
+
+                        <td><?php echo esc_html(ucfirst($product->status)); ?></td>
 
                         <td>
 
