@@ -14,17 +14,27 @@ final class ProductRepository
     {
         global $wpdb;
 
-        $table = DatabaseManager::getProductsTable();
+        $productsTable   = DatabaseManager::getProductsTable();
+        $brandsTable     = DatabaseManager::getBrandsTable();
+        $categoriesTable = DatabaseManager::getCategoriesTable();
 
-        $results = $wpdb->get_results(
-            "SELECT * FROM {$table} ORDER BY id DESC",
-            ARRAY_A
-        );
+        $results = $wpdb->get_results("
+            SELECT
+                p.*,
+                b.name AS brand_name,
+                c.name AS category_name
+            FROM {$productsTable} p
+            LEFT JOIN {$brandsTable} b
+                ON p.brand_id = b.id
+            LEFT JOIN {$categoriesTable} c
+                ON p.category_id = c.id
+            ORDER BY p.id DESC
+        ");
 
         return $results ?: [];
     }
 
-    public function findById(int $id): ?array
+    public function findById(int $id): ?object
     {
         global $wpdb;
 
@@ -34,8 +44,7 @@ final class ProductRepository
             $wpdb->prepare(
                 "SELECT * FROM {$table} WHERE id = %d",
                 $id
-            ),
-            ARRAY_A
+            )
         );
 
         return $product ?: null;
@@ -50,13 +59,17 @@ final class ProductRepository
         $wpdb->insert(
             $table,
             [
-                'slug'       => $data['slug'],
-                'name'       => $data['name'],
-                'status'     => $data['status'],
-                'created_at' => current_time('mysql'),
-                'updated_at' => current_time('mysql'),
+                'brand_id'    => $data['brand_id'],
+                'category_id' => $data['category_id'],
+                'slug'        => $data['slug'],
+                'name'        => $data['name'],
+                'status'      => $data['status'],
+                'created_at'  => current_time('mysql'),
+                'updated_at'  => current_time('mysql'),
             ],
             [
+                '%d',
+                '%d',
                 '%s',
                 '%s',
                 '%s',
@@ -77,15 +90,19 @@ final class ProductRepository
         $result = $wpdb->update(
             $table,
             [
-                'slug'       => $data['slug'],
-                'name'       => $data['name'],
-                'status'     => $data['status'],
-                'updated_at' => current_time('mysql'),
+                'brand_id'    => $data['brand_id'],
+                'category_id' => $data['category_id'],
+                'slug'        => $data['slug'],
+                'name'        => $data['name'],
+                'status'      => $data['status'],
+                'updated_at'  => current_time('mysql'),
             ],
             [
                 'id' => $id,
             ],
             [
+                '%d',
+                '%d',
                 '%s',
                 '%s',
                 '%s',

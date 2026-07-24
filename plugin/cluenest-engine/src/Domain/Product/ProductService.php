@@ -24,7 +24,7 @@ final class ProductService
     /**
      * Get a single product.
      */
-    public function getProductById(int $id): ?array
+    public function getProductById(int $id): ?object
     {
         return $this->repository->findById($id);
     }
@@ -50,28 +50,40 @@ final class ProductService
     }
 
     /**
- * Delete a product.
- */
-public function deleteProduct(int $id): bool
-{
-    return $this->repository->delete($id);
-}
+     * Delete a product.
+     */
+    public function deleteProduct(int $id): bool
+    {
+        return $this->repository->delete($id);
+    }
 
     /**
      * Validate product data.
      */
     private function validate(array $data): array
     {
+        $data['brand_id'] = isset($data['brand_id']) && $data['brand_id'] !== ''
+            ? (int) $data['brand_id']
+            : null;
+
+        $data['category_id'] = isset($data['category_id']) && $data['category_id'] !== ''
+            ? (int) $data['category_id']
+            : null;
+
         $data['name'] = trim($data['name'] ?? '');
         $data['slug'] = trim($data['slug'] ?? '');
-        $data['status'] = $data['status'] ?? 'draft';
+        $data['status'] = trim($data['status'] ?? 'draft');
 
         if ($data['name'] === '') {
             throw new \InvalidArgumentException('Product name is required.');
         }
 
         if ($data['slug'] === '') {
-            throw new \InvalidArgumentException('Product slug is required.');
+            $data['slug'] = sanitize_title($data['name']);
+        }
+
+        if (!in_array($data['status'], ['publish', 'draft'], true)) {
+            $data['status'] = 'draft';
         }
 
         return $data;
