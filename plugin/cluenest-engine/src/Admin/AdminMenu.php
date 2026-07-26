@@ -306,5 +306,13 @@ public function deleteCategoryPage(): void
         CN_PLUGIN_VERSION,
         true
     );
+
+    wp_enqueue_script(
+    'cluenest-product-gallery',
+    CN_PLUGIN_URL . 'assets/js/admin/product-gallery.js',
+    ['jquery'],
+    CN_PLUGIN_VERSION,
+    true
+);
 }
 }

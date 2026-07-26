@@ -21,6 +21,14 @@ $featuredImageUrl = $featuredImageId
     ? wp_get_attachment_image_url($featuredImageId, 'medium')
     : '';
 
+    $galleryImageIds = !empty($product->gallery_image_ids)
+    ? json_decode($product->gallery_image_ids, true)
+    : [];
+
+$galleryImageIds = is_array($galleryImageIds)
+    ? $galleryImageIds
+    : [];
+
 ?>
 
 <form method="post">
@@ -126,6 +134,65 @@ $featuredImageUrl = $featuredImageId
 
         <p class="description">
             Choose a featured image from the WordPress Media Library.
+        </p>
+
+    </td>
+</tr>
+
+<tr>
+    <th>
+        <label>Product Gallery</label>
+    </th>
+    <td>
+
+        <div id="gallery-preview">
+
+            <?php foreach ($galleryImageIds as $imageId) : ?>
+
+                <div
+                    class="gallery-item"
+                    data-id="<?php echo esc_attr($imageId); ?>">
+
+                    <?php
+                    echo wp_get_attachment_image(
+                        $imageId,
+                        'thumbnail'
+                    );
+                    ?>
+
+                    <input
+                        type="hidden"
+                        name="gallery_image_ids[]"
+                        value="<?php echo esc_attr($imageId); ?>">
+
+                    <button
+                        type="button"
+                        class="button remove-gallery-image">
+                        Remove
+                    </button>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        </div>
+
+        <p>
+
+            <button
+                type="button"
+                class="button"
+                id="select-gallery-images">
+
+                Add Gallery Images
+
+            </button>
+
+        </p>
+
+        <p class="description">
+            Select one or more images from the WordPress Media Library.
+            Drag and drop support will be added in this sprint.
         </p>
 
     </td>

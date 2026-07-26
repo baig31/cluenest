@@ -61,6 +61,8 @@ final class ProductRepository
     [
         'brand_id'          => $data['brand_id'],
         'category_id'       => $data['category_id'],
+        'featured_image_id' => $data['featured_image_id'],
+'gallery_image_ids' => $data['gallery_image_ids'],
         'slug'              => $data['slug'],
         'name'              => $data['name'],
         'model_number'      => $data['model_number'],
@@ -74,6 +76,8 @@ final class ProductRepository
     [
         '%d',
         '%d',
+        '%d',
+'%s',
         '%s',
         '%s',
         '%s',

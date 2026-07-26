@@ -1,0 +1,26 @@
+#gallery-preview{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.gallery-item{
+    border:1px solid #ddd;
+    padding:8px;
+    background:#fff;
+    cursor:move;
+    text-align:center;
+}
+
+.gallery-item img{
+    display:block;
+    width:120px;
+    height:auto;
+    margin-bottom:8px;
+}
+
+.gallery-placeholder{
+    width:120px;
+    height:120px;
+    border:2px dashed #2271b1;
+}

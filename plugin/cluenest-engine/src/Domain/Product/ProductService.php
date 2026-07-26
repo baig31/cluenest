@@ -71,9 +71,9 @@ private function validate(array $data): array
         ? (int) $data['category_id']
         : null;
 
-    $data['featured_image_id'] = !empty($data['featured_image_id'])
-        ? (int) $data['featured_image_id']
-        : null;
+    $data['gallery_image_ids'] = !empty($data['gallery_image_ids'])
+    ? wp_json_encode(array_map('intval', (array) $data['gallery_image_ids']))
+    : null;
 
     $data['name'] = sanitize_text_field(trim($data['name'] ?? ''));
 
@@ -89,7 +89,7 @@ private function validate(array $data): array
         ? (float) $data['editorial_rating']
         : 0;
 
-    $data['status'] = trim($data['status'] ?? 'draft');
+   $data['status'] = sanitize_text_field($data['status'] ?? 'draft');
 
     if ($data['name'] === '') {
         throw new \InvalidArgumentException('Product name is required.');

@@ -42,7 +42,9 @@ final class ProductController
            $data = [
     'brand_id'          => isset($_POST['brand_id']) ? (int) $_POST['brand_id'] : null,
     'category_id'       => isset($_POST['category_id']) ? (int) $_POST['category_id'] : null,
-'featured_image_id' => isset($_POST['featured_image_id']) ? (int) $_POST['featured_image_id'] : null,
+'gallery_image_ids' => isset($_POST['gallery_image_ids'])
+    ? (array) $_POST['gallery_image_ids']
+    : [],
     'name'              => sanitize_text_field($_POST['name'] ?? ''),
     'slug'              => sanitize_title($_POST['slug'] ?? ''),
     'model_number'      => sanitize_text_field($_POST['model_number'] ?? ''),
@@ -99,7 +101,9 @@ final class ProductController
             $data = [
     'brand_id'          => isset($_POST['brand_id']) ? (int) $_POST['brand_id'] : null,
     'category_id'       => isset($_POST['category_id']) ? (int) $_POST['category_id'] : null,
-'featured_image_id' => isset($_POST['featured_image_id']) ? (int) $_POST['featured_image_id'] : null,
+'gallery_image_ids' => isset($_POST['gallery_image_ids'])
+    ? (array) $_POST['gallery_image_ids']
+    : [],
     'name'              => sanitize_text_field($_POST['name'] ?? ''),
     'slug'              => sanitize_title($_POST['slug'] ?? ''),
     'model_number'      => sanitize_text_field($_POST['model_number'] ?? ''),
