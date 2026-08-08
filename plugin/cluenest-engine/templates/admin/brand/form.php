@@ -175,6 +175,265 @@ $featuredImageUrl = $featuredImageId
         </tr>
 
         <tr>
+    <th>
+        <label>Product Specifications</label>
+    </th>
+
+    <td>
+
+        <div id="product-specifications">
+
+            <?php if (!empty($specifications)) : ?>
+
+                <?php foreach ($specifications as $specification) : ?>
+
+                    <div class="product-specification-row" style="margin-bottom: 10px;">
+
+                        <input
+                            type="text"
+                            name="specification[]"
+                            class="regular-text"
+                            placeholder="Specification"
+                            value="<?php echo esc_attr($specification->specification); ?>">
+
+                        <input
+                            type="text"
+                            name="value[]"
+                            class="regular-text"
+                            placeholder="Value"
+                            value="<?php echo esc_attr($specification->value); ?>">
+
+                        <button
+                            type="button"
+                            class="button remove-specification">
+
+                            Remove
+
+                        </button>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            <?php else : ?>
+
+                <div class="product-specification-row" style="margin-bottom: 10px;">
+
+                    <input
+                        type="text"
+                        name="specification[]"
+                        class="regular-text"
+                        placeholder="Specification">
+
+                    <input
+                        type="text"
+                        name="value[]"
+                        class="regular-text"
+                        placeholder="Value">
+
+                    <button
+                        type="button"
+                        class="button remove-specification">
+
+                        Remove
+
+                    </button>
+
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+        <p>
+            <button
+                type="button"
+                class="button button-secondary"
+                id="add-specification">
+
+                + Add Specification
+
+            </button>
+        </p>
+
+        <p class="description">
+            Add product specifications such as Capacity, Material,
+            Dimensions, Warranty, Energy Rating, etc.
+        </p>
+
+    </td>
+</tr>
+
+<tr>
+    <th>
+        <label>Product Pros & Cons</label>
+    </th>
+
+    <td>
+
+        <h4 style="margin-bottom: 8px;">Pros</h4>
+
+        <div id="product-pros">
+
+            <?php
+            $pros = array_filter(
+                $prosCons ?? [],
+                static fn ($item) => isset($item->type) && $item->type === 'pro'
+            );
+            ?>
+
+            <?php if (!empty($pros)) : ?>
+
+                <?php foreach ($pros as $pro) : ?>
+
+                    <div class="product-pros-cons-row" style="margin-bottom: 10px;">
+
+                        <input
+                            type="hidden"
+                            name="pros_cons_type[]"
+                            value="pro">
+
+                        <input
+                            type="text"
+                            name="pros_cons_content[]"
+                            class="regular-text"
+                            placeholder="Product advantage"
+                            value="<?php echo esc_attr($pro->content); ?>">
+
+                        <button
+                            type="button"
+                            class="button remove-pros-cons">
+                            Remove
+                        </button>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            <?php else : ?>
+
+                <div class="product-pros-cons-row" style="margin-bottom: 10px;">
+
+                    <input
+                        type="hidden"
+                        name="pros_cons_type[]"
+                        value="pro">
+
+                    <input
+                        type="text"
+                        name="pros_cons_content[]"
+                        class="regular-text"
+                        placeholder="Product advantage">
+
+                    <button
+                        type="button"
+                        class="button remove-pros-cons">
+                        Remove
+                    </button>
+
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+        <p>
+            <button
+                type="button"
+                class="button button-secondary"
+                id="add-product-pro">
+
+                + Add Pro
+
+            </button>
+        </p>
+
+
+        <h4 style="margin-top: 25px; margin-bottom: 8px;">Cons</h4>
+
+        <div id="product-cons">
+
+            <?php
+            $cons = array_filter(
+                $prosCons ?? [],
+                static fn ($item) => isset($item->type) && $item->type === 'con'
+            );
+            ?>
+
+            <?php if (!empty($cons)) : ?>
+
+                <?php foreach ($cons as $con) : ?>
+
+                    <div class="product-pros-cons-row" style="margin-bottom: 10px;">
+
+                        <input
+                            type="hidden"
+                            name="pros_cons_type[]"
+                            value="con">
+
+                        <input
+                            type="text"
+                            name="pros_cons_content[]"
+                            class="regular-text"
+                            placeholder="Product disadvantage"
+                            value="<?php echo esc_attr($con->content); ?>">
+
+                        <button
+                            type="button"
+                            class="button remove-pros-cons">
+                            Remove
+                        </button>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            <?php else : ?>
+
+                <div class="product-pros-cons-row" style="margin-bottom: 10px;">
+
+                    <input
+                        type="hidden"
+                        name="pros_cons_type[]"
+                        value="con">
+
+                    <input
+                        type="text"
+                        name="pros_cons_content[]"
+                        class="regular-text"
+                        placeholder="Product disadvantage">
+
+                    <button
+                        type="button"
+                        class="button remove-pros-cons">
+                        Remove
+                    </button>
+
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+        <p>
+            <button
+                type="button"
+                class="button button-secondary"
+                id="add-product-con">
+
+                + Add Con
+
+            </button>
+        </p>
+
+        <p class="description">
+            Add the main advantages and disadvantages of this product.
+        </p>
+
+    </td>
+</tr>
+
+        <tr>
             <th>
                 <label for="short_description">Short Description</label>
             </th>

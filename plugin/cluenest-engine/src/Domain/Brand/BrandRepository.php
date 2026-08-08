@@ -17,14 +17,13 @@ final class BrandRepository
         $table = DatabaseManager::getBrandsTable();
 
         $results = $wpdb->get_results(
-            "SELECT * FROM {$table} ORDER BY name ASC",
-            ARRAY_A
+            "SELECT * FROM {$table} ORDER BY name ASC"
         );
 
         return $results ?: [];
     }
 
-    public function findById(int $id): ?array
+    public function findById(int $id): ?object
     {
         global $wpdb;
 
@@ -34,8 +33,7 @@ final class BrandRepository
             $wpdb->prepare(
                 "SELECT * FROM {$table} WHERE id = %d",
                 $id
-            ),
-            ARRAY_A
+            )
         );
 
         return $brand ?: null;

@@ -75,18 +75,18 @@ defined('ABSPATH') || exit;
 
                     <tr>
 
-                        <td><?php echo esc_html((string) $brand['id']); ?></td>
+                        <td><?php echo esc_html((string) $brand->id); ?></td>
 
-                        <td><?php echo esc_html($brand['name']); ?></td>
+<td><?php echo esc_html($brand->name); ?></td>
 
-                        <td><?php echo esc_html(ucfirst($brand['status'])); ?></td>
+<td><?php echo esc_html(ucfirst($brand->status)); ?></td>
 
                         <td>
 
                             <a
                                 href="<?php echo esc_url(
                                     admin_url(
-                                        'admin.php?page=cluenest-brand-edit&id=' . $brand['id']
+                                        'admin.php?page=cluenest-brand-edit&id=' . $brand->id
                                     )
                                 ); ?>"
                                 class="button button-secondary">
@@ -97,9 +97,9 @@ defined('ABSPATH') || exit;
                                 href="<?php echo esc_url(
                                     wp_nonce_url(
                                         admin_url(
-                                            'admin.php?page=cluenest-brand-delete&id=' . $brand['id']
+                                            'admin.php?page=cluenest-brand-delete&id=' . $brand->id
                                         ),
-                                        'cluenest_delete_product'
+                                        'cluenest_delete_brand'
                                     )
                                 ); ?>"
                                 class="button button-link-delete"

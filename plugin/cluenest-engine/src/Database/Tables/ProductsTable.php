@@ -16,7 +16,7 @@ final class ProductsTable
     }
 
     
-    public function getSchema(): string
+public function getSchema(): string
 {
     global $wpdb;
 
@@ -28,9 +28,8 @@ final class ProductsTable
         name VARCHAR(255) NOT NULL,
         brand_id BIGINT UNSIGNED DEFAULT NULL,
         category_id BIGINT UNSIGNED DEFAULT NULL,
-
         featured_image_id BIGINT UNSIGNED DEFAULT NULL,
-
+        gallery_image_ids LONGTEXT NULL,
         model_number VARCHAR(150) DEFAULT NULL,
         short_description TEXT NULL,
         long_description LONGTEXT NULL,
@@ -39,14 +38,12 @@ final class ProductsTable
         created_at DATETIME NOT NULL,
         updated_at DATETIME NOT NULL,
         deleted_at DATETIME NULL,
-
-        PRIMARY KEY (id),
+        PRIMARY KEY  (id),
         UNIQUE KEY slug (slug),
         KEY brand_id (brand_id),
         KEY category_id (category_id),
         KEY featured_image_id (featured_image_id),
         KEY status (status)
-
     ) {$charsetCollate};";
 }
 

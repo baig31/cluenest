@@ -56,7 +56,7 @@ require CN_PLUGIN_PATH . 'templates/admin/brand/index.php';
                     '</p></div>';
             }
         }
-$brand = [];
+$brand = (object) [];
         require CN_PLUGIN_PATH . 'templates/admin/brand/create.php';
     }
 

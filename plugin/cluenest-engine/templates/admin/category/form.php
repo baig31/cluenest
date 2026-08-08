@@ -90,4 +90,10 @@ $category = $category ?? (object) [];
 
 </table>
 
-<?php submit_button('Update Category'); ?>
+<?php
+submit_button(
+    !empty($category->id)
+        ? 'Update Category'
+        : 'Add Category'
+);
+?>

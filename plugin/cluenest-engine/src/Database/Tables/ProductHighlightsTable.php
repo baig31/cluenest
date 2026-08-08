@@ -8,14 +8,14 @@ use ClueNest\Database\DatabaseManager;
 
 defined('ABSPATH') || exit;
 
-final class CategoriesTable
+final class ProductHighlightsTable
 {
     public function getTableName(): string
     {
-        return DatabaseManager::getCategoriesTable();
+        return DatabaseManager::getProductHighlightsTable();
     }
 
-    public function getSchema(): string
+   public function getSchema(): string
 {
     global $wpdb;
 
@@ -23,18 +23,15 @@ final class CategoriesTable
 
     return "CREATE TABLE {$this->getTableName()} (
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-        parent_id BIGINT UNSIGNED DEFAULT NULL,
-        name VARCHAR(255) NOT NULL,
-        slug VARCHAR(255) NOT NULL,
-        description TEXT NULL,
-        status VARCHAR(20) NOT NULL DEFAULT 'draft',
+        product_id BIGINT UNSIGNED NOT NULL,
+        highlight TEXT NOT NULL,
+        sort_order INT UNSIGNED NOT NULL DEFAULT 0,
         created_at DATETIME NOT NULL,
         updated_at DATETIME NOT NULL,
         deleted_at DATETIME NULL,
         PRIMARY KEY  (id),
-        UNIQUE KEY slug (slug),
-        KEY parent_id (parent_id),
-        KEY status (status)
+        KEY product_id (product_id),
+        KEY sort_order (sort_order)
     ) {$charsetCollate};";
 }
 }

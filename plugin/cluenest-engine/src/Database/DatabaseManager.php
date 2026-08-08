@@ -29,4 +29,34 @@ final class DatabaseManager
     {
         return self::getPrefix() . 'categories';
     }
+
+
+
+    public static function getProductSpecificationsTable(): string
+{
+    return self::getPrefix() . 'product_specifications';
+}
+
+public static function getProductHighlightsTable(): string
+{
+    return self::getPrefix() . 'product_highlights';
+}
+
+public static function getProductPricingTable(): string
+{
+    return self::getPrefix() . 'product_pricing';
+}
+
+public static function getProductSeoTable(): string
+{
+    return self::getPrefix() . 'product_seo';
+}
+
+
+public static function getProductProsConsTable(): string
+{
+    return self::getPrefix() . 'product_pros_cons';
+}
+
+
 }

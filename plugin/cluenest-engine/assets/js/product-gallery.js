@@ -28,15 +28,45 @@ jQuery(function ($) {
 
             selection.forEach(function (attachment) {
 
-                if ($('#gallery-preview').find('[data-id="' + attachment.id + '"]').length) {
+                if (
+                    $('#gallery-preview')
+                        .find('[data-id="' + attachment.id + '"]')
+                        .length
+                ) {
                     return;
                 }
 
+                const imageUrl =
+                    attachment.sizes &&
+                    attachment.sizes.thumbnail
+                        ? attachment.sizes.thumbnail.url
+                        : attachment.url;
+
                 $('#gallery-preview').append(
-                    '<div class="gallery-item" data-id="' + attachment.id + '">' +
-                        '<img src="' + attachment.sizes.thumbnail.url + '">' +
-                        '<input type="hidden" name="gallery_image_ids[]" value="' + attachment.id + '">' +
-                        '<p><button type="button" class="button remove-gallery-image">Remove</button></p>' +
+
+                    '<div class="gallery-item" data-id="' +
+                        attachment.id +
+                    '">' +
+
+                        '<img src="' +
+                            imageUrl +
+                        '" style="max-width:120px;height:auto;">' +
+
+                        '<input ' +
+                            'type="hidden" ' +
+                            'name="gallery_image_ids[]" ' +
+                            'value="' + attachment.id + '">' +
+
+                        '<p>' +
+
+                            '<button ' +
+                                'type="button" ' +
+                                'class="button remove-gallery-image">' +
+                                'Remove' +
+                            '</button>' +
+
+                        '</p>' +
+
                     '</div>'
                 );
 
@@ -48,23 +78,30 @@ jQuery(function ($) {
 
     });
 
-    $(document).on('click', '.remove-gallery-image', function (e) {
 
-        e.preventDefault();
+    $(document).on(
+        'click',
+        '.remove-gallery-image',
+        function (e) {
 
-        $(this)
-            .closest('.gallery-item')
-            .remove();
+            e.preventDefault();
+
+            $(this)
+                .closest('.gallery-item')
+                .remove();
+
+        }
+    );
+
+
+    $('#gallery-preview').sortable({
+
+        items: '.gallery-item',
+        cursor: 'move',
+        opacity: 0.8,
+        placeholder: 'gallery-placeholder',
+        tolerance: 'pointer'
 
     });
-
-
-   $('#gallery-preview').sortable({
-    items: '.gallery-item',
-    cursor: 'move',
-    opacity: 0.8,
-    placeholder: 'gallery-placeholder',
-    tolerance: 'pointer'
-});
 
 });

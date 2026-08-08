@@ -300,16 +300,44 @@ public function deleteCategoryPage(): void
     wp_enqueue_media();
 
     wp_enqueue_script(
+    'jquery-ui-sortable'
+);
+
+    wp_enqueue_script(
         'cluenest-product-media',
-        CN_PLUGIN_URL . 'assets/js/admin/product-media.js',
+        CN_PLUGIN_URL . 'assets/js/product-media.js',
         ['jquery'],
         CN_PLUGIN_VERSION,
         true
     );
 
     wp_enqueue_script(
+    'cluenest-product-highlights',
+    CN_PLUGIN_URL . 'assets/js/product-highlights.js',
+    ['jquery'],
+    CN_PLUGIN_VERSION,
+    true
+);
+
+wp_enqueue_script(
+    'cluenest-product-specifications',
+    CN_PLUGIN_URL . 'assets/js/product-specifications.js',
+    ['jquery'],
+    CN_PLUGIN_VERSION,
+    true
+);
+
+wp_enqueue_script(
+    'cluenest-product-pros-cons',
+    CN_PLUGIN_URL . 'assets/js/product-pros-cons.js',
+    ['jquery'],
+    CN_PLUGIN_VERSION,
+    true
+);
+
+    wp_enqueue_script(
     'cluenest-product-gallery',
-    CN_PLUGIN_URL . 'assets/js/admin/product-gallery.js',
+    CN_PLUGIN_URL . 'assets/js/product-gallery.js',
     ['jquery'],
     CN_PLUGIN_VERSION,
     true
