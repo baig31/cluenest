@@ -8,11 +8,11 @@ use ClueNest\Database\DatabaseManager;
 
 defined('ABSPATH') || exit;
 
-final class ProductPricingTable
+final class BuyingGuideProductsTable
 {
     public function getTableName(): string
     {
-        return DatabaseManager::getProductPricingTable();
+        return DatabaseManager::getBuyingGuideProductsTable();
     }
 
     public function getSchema(): string
@@ -23,17 +23,18 @@ final class ProductPricingTable
 
         return "CREATE TABLE {$this->getTableName()} (
             id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            buying_guide_id BIGINT UNSIGNED NOT NULL,
             product_id BIGINT UNSIGNED NOT NULL,
-            price DECIMAL(12,2) NOT NULL DEFAULT 0.00,
-            original_price DECIMAL(12,2) DEFAULT NULL,
-            affiliate_url TEXT NULL,
-            affiliate_network VARCHAR(50) DEFAULT NULL,
-            currency VARCHAR(10) NOT NULL DEFAULT 'INR',
+            sort_order INT UNSIGNED NOT NULL DEFAULT 0,
             created_at DATETIME NOT NULL,
             updated_at DATETIME NOT NULL,
-            PRIMARY KEY  (id),
+
+            PRIMARY KEY (id),
+            UNIQUE KEY guide_product (buying_guide_id, product_id),
+            KEY buying_guide_id (buying_guide_id),
             KEY product_id (product_id),
-            KEY affiliate_network (affiliate_network)
+            KEY sort_order (sort_order)
+
         ) {$charsetCollate};";
     }
 }

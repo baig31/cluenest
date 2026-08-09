@@ -31,10 +31,8 @@ final class ProductSeoTable
             robots_index VARCHAR(20) NOT NULL DEFAULT 'index',
             created_at DATETIME NOT NULL,
             updated_at DATETIME NOT NULL,
-
-            PRIMARY KEY (id),
+            PRIMARY KEY  (id),
             UNIQUE KEY product_id (product_id)
-
         ) {$charsetCollate};";
     }
 }

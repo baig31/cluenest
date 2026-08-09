@@ -12,6 +12,8 @@ use ClueNest\Database\Tables\ProductHighlightsTable;
 use ClueNest\Database\Tables\ProductProsConsTable;
 use ClueNest\Database\Tables\ProductPricingTable;
 use ClueNest\Database\Tables\ProductSeoTable;
+use ClueNest\Database\Tables\BuyingGuidesTable;
+use ClueNest\Database\Tables\BuyingGuideProductsTable;
 
 defined('ABSPATH') || exit;
 
@@ -28,6 +30,8 @@ final class Schema
             new ProductProsConsTable(),
             new ProductPricingTable(),
              new ProductSeoTable(),
+            new BuyingGuidesTable(),
+            new BuyingGuideProductsTable(),
         ];
     }
 }

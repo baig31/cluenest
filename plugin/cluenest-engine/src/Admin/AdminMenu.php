@@ -154,6 +154,33 @@ add_submenu_page(
         );
 
         add_submenu_page(
+    null,
+    'Add Buying Guide',
+    'Add Buying Guide',
+    'manage_options',
+    'cluenest-buying-guide-create',
+    [$this, 'createBuyingGuidePage']
+);
+
+add_submenu_page(
+    null,
+    'Edit Buying Guide',
+    'Edit Buying Guide',
+    'manage_options',
+    'cluenest-buying-guide-edit',
+    [$this, 'editBuyingGuidePage']
+);
+
+add_submenu_page(
+    null,
+    'Delete Buying Guide',
+    'Delete Buying Guide',
+    'manage_options',
+    'cluenest-buying-guide-delete',
+    [$this, 'deleteBuyingGuidePage']
+);
+
+        add_submenu_page(
             'cluenest',
             'Comparisons',
             'Comparisons',
@@ -264,13 +291,34 @@ public function deleteCategoryPage(): void
     $controller->index();
 }
 
+public function createBuyingGuidePage(): void
+{
+    $controller = new \ClueNest\Admin\BuyingGuide\BuyingGuideController();
+
+    $controller->create();
+}
+
+public function editBuyingGuidePage(): void
+{
+    $controller = new \ClueNest\Admin\BuyingGuide\BuyingGuideController();
+
+    $controller->edit();
+}
+
+public function deleteBuyingGuidePage(): void
+{
+    $controller = new \ClueNest\Admin\BuyingGuide\BuyingGuideController();
+
+    $controller->delete();
+}
 
 
+public function buyingGuidesPage(): void
+{
+    $controller = new \ClueNest\Admin\BuyingGuide\BuyingGuideController();
 
-    public function buyingGuidesPage(): void
-    {
-        echo '<div class="wrap"><h1>Buying Guides</h1><p>Coming Soon...</p></div>';
-    }
+    $controller->index();
+}
 
     public function comparisonsPage(): void
     {
@@ -289,9 +337,11 @@ public function deleteCategoryPage(): void
     }
 
     $allowedPages = [
-        'cluenest-product-create',
-        'cluenest-product-edit',
-    ];
+    'cluenest-product-create',
+    'cluenest-product-edit',
+    'cluenest-buying-guide-create',
+    'cluenest-buying-guide-edit',
+];
 
     if (!in_array($_GET['page'], $allowedPages, true)) {
         return;
@@ -310,6 +360,14 @@ public function deleteCategoryPage(): void
         CN_PLUGIN_VERSION,
         true
     );
+
+    wp_enqueue_script(
+    'cluenest-buying-guide-products',
+    CN_PLUGIN_URL . 'assets/js/buying-guide-products.js',
+    ['jquery', 'jquery-ui-sortable'],
+    CN_PLUGIN_VERSION,
+    true
+);
 
     wp_enqueue_script(
     'cluenest-product-highlights',

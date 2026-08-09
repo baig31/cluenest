@@ -52,6 +52,16 @@ public static function getProductSeoTable(): string
     return self::getPrefix() . 'product_seo';
 }
 
+public static function getBuyingGuidesTable(): string
+{
+    return self::getPrefix() . 'buying_guides';
+}
+
+public static function getBuyingGuideProductsTable(): string
+{
+    return self::getPrefix() . 'buying_guide_products';
+}
+
 
 public static function getProductProsConsTable(): string
 {
